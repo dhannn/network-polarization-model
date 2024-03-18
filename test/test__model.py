@@ -56,6 +56,20 @@ class TestSocialNetwork(unittest.TestCase):
         actual = [ agent.is_active for agent in self.agents ]
         self.assertListEqual(expected, actual, f'Expected {expected}, returns, {actual}')
     
+    def test__activate_inital_nodes__high_temp_negative_polarity(self):
+        SocialNetwork.activateInitialNodes(self.agents, polarity_mode="-", social_temperature_mode="H")
+        
+        expected = [ False, True, False, False, False, False ]
+        actual = [ agent.is_active for agent in self.agents ]
+        self.assertListEqual(expected, actual, f'Expected {expected}, returns, {actual}')
+
+    def test__activate_inital_nodes__high_temp_positive_polarity(self):
+        SocialNetwork.activateInitialNodes(self.agents, polarity_mode="M", social_temperature_mode="H")
+        
+        expected = [ True, True, False, False, False, False ]
+        actual = [ agent.is_active for agent in self.agents ]
+        self.assertListEqual(expected, actual, f'Expected {expected}, returns, {actual}')
+    
     def test__activate_inital_nodes__mid_temp_negative_polarity(self):
         SocialNetwork.activateInitialNodes(self.agents, polarity_mode="-", social_temperature_mode="M")
         
@@ -86,6 +100,11 @@ class TestSocialNetwork(unittest.TestCase):
         self.assertListEqual(expected, actual, f'Expected {expected}, returns, {actual}')
     
     def test_activate_initial_nodes_high_low_temp_mixed_polarity(self):
+        SocialNetwork.activateInitialNodes(self.agents, polarity_mode="M", social_temperature_mode="HL")
+        
+        expected = [True, True, False, False, True, True]
+        actual = [ agent.is_active for agent in self.agents ]
+        self.assertListEqual(expected, actual, f'Expected {expected}, returns, {actual}')
         pass
         
     
