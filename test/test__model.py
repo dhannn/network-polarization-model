@@ -2,8 +2,8 @@ import unittest
 
 import agentpy as ap
 
-from src.model.social_network import SocialNetwork
-from src.model.person import Person
+from src.model.combined import SocialNetwork
+from src.model.combined import Person
 
 class TestSocialNetwork(unittest.TestCase):
     

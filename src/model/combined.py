@@ -140,7 +140,7 @@ class Person(ap.Agent):
         self.self_belief = self.model.random.random()
         self.social_influence_factor = 0.2
 
-    def __get_opinion_influence(self, neighbors):
+    def get_opinion_influence(self, neighbors):
 
         opinion_similarity = lambda u, v: 1 - (abs(u - v)) / 2.0
 
@@ -155,7 +155,7 @@ class Person(ap.Agent):
 
         return active_os / total_os
 
-    def __get_relation_influence(self, neighbors):
+    def get_relation_influence(self, neighbors):
 
         status_pressure = lambda deg_u, deg_v: deg_u / (deg_u + deg_v)
 
@@ -175,8 +175,8 @@ class Person(ap.Agent):
     def get_social_influence(self):
         try:
             neighbors = list(self.network.neighbors(self))
-            return self.social_influence_factor * self.__get_opinion_influence(neighbors) + (
-                        1 - self.social_influence_factor) * self.__get_relation_influence(neighbors)
+            return self.social_influence_factor * self.get_opinion_influence(neighbors) + (
+                        1 - self.social_influence_factor) * self.get_relation_influence(neighbors)
 
         except nx.exception.NetworkXError:
             print(f'Not found: {self}, {self.model.network.positions[self]}')
